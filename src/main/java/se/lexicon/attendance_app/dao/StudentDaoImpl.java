@@ -3,14 +3,16 @@ package se.lexicon.attendance_app.dao;
 import se.lexicon.attendance_app.model.Student;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-    public class StudentDaoImpl implements StudentDao {
+public class StudentDaoImpl implements StudentDao {
 
-        private final Connection connection;
-        public StudentDaoImpl(Connection connection) {
-            this.connection = connection;
-        }
+    private final Connection connection;
+
+    public StudentDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Student save(Student student) {
@@ -42,6 +44,32 @@ import java.util.List;
 
     @Override
     public List<Student> findAll() {
-        return List.of();
+
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT * FROM student";
+
+        try (
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                students.add(new Student(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("class_group"),
+                        rs.getTimestamp("create_date").toLocalDateTime()
+                ));
+
+                // or extract the map row to student as a helper method
+                //students.add(mapRowToStudent(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("❌ Error retrieving students: " + e.getMessage());
+            throw new RuntimeException("Error retrieving students", e);
+        }
+
+        return students;
+
     }
 }

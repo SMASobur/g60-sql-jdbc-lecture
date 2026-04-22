@@ -4,7 +4,7 @@ import se.lexicon.attendance_app.model.Attendance;
 
 import java.util.List;
 import java.util.Optional;
-
+//ToDo: Implement the AttendanceDao
 public interface AttendanceDao {
     Attendance save(Attendance attendance); // Create or Update
     List<Attendance> findAll(); // Read all
