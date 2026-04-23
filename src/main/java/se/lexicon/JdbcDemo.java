@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class JdbcDemo {
-    //Step 1:
-    private static final String URL = "jdbc:mysql://localhost:3306/student_db";
-    private static final String USER = "root";
+
+    // PostgreSQL connection details
+    private static final String URL = "jdbc:postgresql://localhost:5432/student_db";
+    private static final String USER = "postgres";
     private static final String PASSWORD = "elnaz";
 
     static void main() {
@@ -20,26 +21,23 @@ public class JdbcDemo {
                 Statement statement = connection.createStatement();
         ) {
             System.out.println("✅ Database connection established successfully!");
-            // Step 2: Execute a SQL SELECT Statement
+
+            // PostgreSQL uses same SELECT syntax
             String query = "SELECT id, name, class_group, create_date FROM student";
             ResultSet resultSet = statement.executeQuery(query);
-            // Step 3: Process the ResultSet
+
             System.out.println("📌 Student Records: ");
 
-            while (resultSet.next()) { // Moves to the next row in the result set
-
+            while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String classGroup = resultSet.getString("class_group");
 
-                // Convert to LocalDateTime
+                // PostgreSQL returns timestamp the same way
                 LocalDateTime createDate = resultSet.getTimestamp("create_date").toLocalDateTime();
 
-                // OPTIONAL
-                // Format LocalDateTime to String
                 String formattedDate = createDate.format(DateTimeFormatter.ofPattern("EEEE MMMM dd yyyy"));
 
-                // Display student data
                 System.out.println("ID: " + id + " | Name: " + name + " | Class: " + classGroup + " | Created At: " + createDate);
             }
 
@@ -49,29 +47,20 @@ public class JdbcDemo {
     }
 
     public static void ex2() {
-        // Step 1: Establish a connection and create a PreparedStatement
         try (
                 Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-
                 PreparedStatement preparedStatement = connection.prepareStatement(
                         "SELECT id, name, class_group, create_date FROM student WHERE class_group LIKE ?"
                 );
         ) {
             System.out.println("✅ Database connection established successfully!");
 
-            // Step 2: Set the parameter in PreparedStatement
             String classGroupParam = "G1";
-            preparedStatement.setString(1, classGroupParam); // The first "?" is replaced with classGroupParam
-            //preparedStatement.setString(1, "%" + classGroupParam + "%"); // Search for any class group that contains "G"
-
-            // Step 3: Execute the SQL SELECT Statement
+            preparedStatement.setString(1, classGroupParam);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                // Step 4: Process the ResultSet
                 System.out.println("📌 Student Records in Class Group: " + classGroupParam);
                 while (resultSet.next()) {
-
                     int id = resultSet.getInt("id");
                     String name = resultSet.getString("name");
                     String classGroup = resultSet.getString("class_group");
@@ -85,6 +74,4 @@ public class JdbcDemo {
             System.err.println("❌ Error connecting to the database: " + e.getMessage());
         }
     }
-
-
 }

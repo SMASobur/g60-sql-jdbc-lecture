@@ -13,5 +13,4 @@ public interface AttendanceDao {
     Optional<Attendance> findById(int id); // Read by ID
     void update(Attendance attendance);
     boolean delete(int id);
-
 }

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>se.lexicon</groupId>
-    <artifactId>g60-sql-jdbc-lecture</artifactId>
+    <artifactId>sql_exercise</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -15,10 +15,11 @@
     </properties>
 
     <dependencies>
+        <!-- PostgreSQL JDBC Driver -->
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>9.5.0</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
         </dependency>
     </dependencies>
 

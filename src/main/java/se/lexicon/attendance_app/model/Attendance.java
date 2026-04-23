@@ -4,70 +4,44 @@ import java.time.LocalDate;
 
 public class Attendance {
     private int id;
-    private Student student;
+    private int studentId;
     private LocalDate attendanceDate;
-    private AttendanceStatus status;
+    private String status;
 
-    // Constructor with parameters
-    public Attendance(int id, Student student, LocalDate attendanceDate, AttendanceStatus status) {
+    // Constructors
+    public Attendance(int id, int studentId, LocalDate attendanceDate, String status) {
         this.id = id;
-        this.student = student;
+        this.studentId = studentId;
         this.attendanceDate = attendanceDate;
         this.status = status;
     }
 
-    public Attendance(Student student, LocalDate attendanceDate, AttendanceStatus status) {
-        this.student = student;
+    public Attendance(int studentId, LocalDate attendanceDate, String status) {
+        this.studentId = studentId;
         this.attendanceDate = attendanceDate;
-        this.status = status;
-    }
-
-    public Attendance(Student student, AttendanceStatus status) {
-        this.student = student;
         this.status = status;
     }
 
     // Getters and Setters
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public int getStudentId() { return studentId; }
+    public void setStudentId(int studentId) { this.studentId = studentId; }
 
-    public Student getStudent() {
-        return student;
-    }
+    public LocalDate getAttendanceDate() { return attendanceDate; }
+    public void setAttendanceDate(LocalDate attendanceDate) { this.attendanceDate = attendanceDate; }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public LocalDate getAttendanceDate() {
-        return attendanceDate;
-    }
-
-    public void setAttendanceDate(LocalDate attendanceDate) {
-        this.attendanceDate = attendanceDate;
-    }
-
-    public AttendanceStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(AttendanceStatus status) {
-        this.status = status;
-    }
-
-    // toString() Method
     @Override
     public String toString() {
         return "Attendance{" +
                 "id=" + id +
-                ", student=" + student +
-                ", attendanceDate=" + attendanceDate +
-                ", status=" + status +
+                ", studentId=" + studentId +
+                ", date=" + attendanceDate +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
