@@ -10,7 +10,7 @@ public interface AttendanceDao {
     List<Attendance> findAll(); // Read all
 
     // Optional
-    Optional<Attendance> findById(int id); // Read by ID
+    /*Optional<Attendance> findById(int id); // Read by ID
     void update(Attendance attendance);
-    boolean delete(int id);
+    boolean delete(int id);*/
 }

@@ -22,7 +22,6 @@ public class JdbcDemo {
         ) {
             System.out.println("✅ Database connection established successfully!");
 
-            // PostgreSQL uses same SELECT syntax
             String query = "SELECT id, name, class_group, create_date FROM student";
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -33,7 +32,6 @@ public class JdbcDemo {
                 String name = resultSet.getString("name");
                 String classGroup = resultSet.getString("class_group");
 
-                // PostgreSQL returns timestamp the same way
                 LocalDateTime createDate = resultSet.getTimestamp("create_date").toLocalDateTime();
 
                 String formattedDate = createDate.format(DateTimeFormatter.ofPattern("EEEE MMMM dd yyyy"));
